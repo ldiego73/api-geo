@@ -1,0 +1,52 @@
+service: geo-api-service
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-webpack
+  - serverless-offline
+
+custom:
+  name: geo-api
+  stage: ${opt:stage, self:provider.stage}
+  accountId: { "Fn::Join": ["", [{ "Ref": "AWS::AccountId" }]] }
+  bucket:
+    base: auna-serverless
+  dotenv:
+    exclude:
+      - IS_OFFLINE
+  webpack:
+    webpackConfig: webpack.sls.js
+    packager: 'yarn'
+    includeModules: true
+  serverless-offline:
+    useChildProcesses: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${env:REGION}
+  stage: ${env:STAGE}
+  tracing:
+    lambda: true
+    apiGateway: true
+  deploymentBucket:
+    name: ${self:custom.bucket.base}
+    serverSideEncryption: AES256
+  deploymentPrefix: ${self:custom.name}
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    ACCOUNT_ID: ${self:custom.accountId}
+    REGION: ${env:REGION}
+    STAGE: ${env:STAGE}
+
+functions:
+  geo:
+    name: ${self:custom.name}-${self:provider.stage}
+    description: Georeferencing api for address search
+    handler: src/interfaces/function/handler.router
+    timeout: 30
+    events:
+      - http:
+          path: geo/{proxy+}
+          method: any
+          cors: true

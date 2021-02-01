@@ -1,0 +1,12 @@
+.vscode/
+.git/
+.serverless/
+docs/
+infra/
+node_modules/
+dist/
+.gitignore
+.gitattributes
+.prettierrc
+nodemon.json
+README.md
