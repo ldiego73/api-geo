@@ -3,7 +3,7 @@ import * as awsx from "@pulumi/awsx";
 import * as dotenv from "dotenv";
 import { resolve } from "path";
 
-const path = resolve(process.cwd(), ".env");
+const path = resolve(process.cwd(), "../../.env");
 
 dotenv.config({ path });
 
@@ -33,6 +33,7 @@ const geoFunction = new aws.lambda.Function("geoFunctionLambda", {
   imageUri: geImage.imageValue,
   role: geoFunctionRole.arn,
   timeout: 30,
+  memorySize: 1024,
   description: "Georeferencing api for address search",
   environment: {
     variables: {

@@ -6,7 +6,7 @@
     "build:api": "webpack --config webpack.api.js",
     "develop:local:api": "nodemon src/interfaces/api/server.ts",
     "develop:local:function": "sls offline --config infra/function/serverless.yml",
-    "infra:sls:package:api": "sls package --config infra/function/serverless.yml"
+    "infra:sls:package:function": "sls package --config infra/function/serverless.yml"
   },
   "dependencies": {
     "fastify": "^3.11.0",

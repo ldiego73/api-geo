@@ -19,13 +19,13 @@ docker rmi $(docker images -f "dangling=true" -q)
 pulumi login s3://auna-pulumi/geo-function
 pulumi login s3://auna-pulumi/geo-api
 
-## Set Region
-pulumi config set aws:region us-east-1 --cwd infra/function
-pulumi config set aws:region us-east-1 --cwd infra/api
-
 ## Stacks
 pulumi stack init develop --cwd infra/function
 pulumi stack init develop --cwd infra/api
+
+## Set Region
+pulumi config set aws:region us-east-1 --cwd infra/function
+pulumi config set aws:region us-east-1 --cwd infra/api
 
 ## Preview
 pulumi preview --cwd infra/function

@@ -20,8 +20,12 @@ const api = lambdaApi({
   ],
 });
 
-api.use((_, res, next) => {
+api.use((req, res, next) => {
   createCors(res);
+
+  console.log("Route => ", req.route);
+  console.log("Path => ", req.path);
+
   next();
 });
 
@@ -42,6 +46,7 @@ export async function router(
 
 async function close(signal: unknown) {
   console.log(`Received signal to terminate: ${signal}`);
+  console.log(`Events closed`);
 
   process.exit();
 }

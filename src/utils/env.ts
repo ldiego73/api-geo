@@ -1,4 +1,5 @@
 import { BaseException } from "./exception";
+import { isNullOrUndefined } from "./validator";
 
 export class EnvVariableException extends BaseException {
   constructor(name: string) {
@@ -10,7 +11,7 @@ export function getEnv(name: string, defaultValue?: unknown): unknown {
   const value = process.env[name];
 
   if (value) return value;
-  else if (defaultValue) return defaultValue;
+  else if (!isNullOrUndefined(defaultValue)) return defaultValue;
 
   throw new EnvVariableException(name);
 }

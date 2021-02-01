@@ -34,6 +34,8 @@ async function close(signal: unknown) {
 
   await server.close();
 
+  console.log(`Events closed`);
+
   process.exit();
 }
 
