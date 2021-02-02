@@ -46,7 +46,7 @@ functions:
     handler: src/interfaces/function/handler.router
     timeout: 30
     events:
-      - http:
+      - httpApi:
           path: geo/{proxy+}
-          method: any
+          method: ANY
           cors: true

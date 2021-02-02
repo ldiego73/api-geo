@@ -1,0 +1,113 @@
+declare type HandlerFunction = (request: Request) => void | any | Promise<any>;
+
+interface Options {
+  basePath?: string;
+  version?: string;
+}
+
+interface Route {
+  path: string;
+  handler: HandlerFunction;
+}
+
+export interface Request {
+  id: string;
+  method: string;
+  path: string;
+  params: {
+    [key: string]: string | undefined;
+  };
+  headers: {
+    [key: string]: string | undefined;
+  };
+  body: any;
+  ip: string;
+  host: string;
+  userAgent: string;
+  stage: string;
+  [key: string]: any;
+}
+
+export class Api {
+  private routes: Route[] = [];
+
+  constructor(private options?: Options) {}
+
+  get(path: string, handler: HandlerFunction): void {
+    this.addRoute(path, handler);
+  }
+
+  post(path: string, handler: HandlerFunction): void {
+    this.addRoute(path, handler);
+  }
+
+  put(path: string, handler: HandlerFunction): void {
+    this.addRoute(path, handler);
+  }
+  patch(path: string, handler: HandlerFunction): void {
+    this.addRoute(path, handler);
+  }
+
+  delete(path: string, handler: HandlerFunction): void {
+    this.addRoute(path, handler);
+  }
+
+  async listen(event: any, context: any): Promise<any> {
+    const request = this.createRequest(event, context);
+
+    for (const route in this.routes) {
+    }
+  }
+
+  private createRoute(path: string): string {
+    let newPath = path;
+
+    if (this.options?.version) newPath = `${this.options.version}/${newPath}`;
+    if (this.options?.basePath) newPath = `${this.options.basePath}/${newPath}`;
+
+    return newPath;
+  }
+
+  private addRoute(path: string, handler: HandlerFunction): void {
+    this.routes.push({ path: this.createRoute(path), handler });
+  }
+
+  private createRequest(event: any, context: any): Request {
+    const request: Request = {};
+
+    request.id =
+      context["awsRequestId"] || event["requestContext"]["requestId"];
+    request.params = Object.assign({}, event["queryStringParameters"]);
+    request.method =
+      event["httpMethod"] ||
+      event["requestContext"]["http"]["method"] ||
+      event["requestContext"]["httpMethod"] ||
+      "";
+    request.path = event["path"] || event["rawPath"] || "/";
+    request.headers = {};
+
+    if (event["headers"]) {
+      for (const header in event["headers"]) {
+        request.headers[header.toLowerCase()] = event["headers"][header];
+      }
+      request.headers["x-request-id"] = request.id;
+    }
+
+    request.body = event["isBase64Encoded"]
+      ? Buffer.from(event.body || "", "base64").toString()
+      : event.body;
+    request.ip =
+      request.headers["x-forwarded-for"] ||
+      event["requestContext"]["http"]["sourceIp"] ||
+      event["requestContext"]["identity"]["sourceIp"];
+    request.host =
+      request.headers["host"] || event["requestContext"]["domainName"];
+    request.userAgent =
+      request.headers["user-agent"] ||
+      event["requestContext"]["http"]["userAgent"] ||
+      event["requestContext"]["identity"]["userAgent"];
+    request.stage = event["requestContext"]["stage"] || "";
+
+    return request;
+  }
+}
