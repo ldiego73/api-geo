@@ -1,4 +1,4 @@
 export * from "./aws";
 export * from "./env";
 export * from "./exception";
-export * from "./http";
+export * from "./api/http";

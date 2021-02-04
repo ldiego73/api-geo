@@ -1,5 +1,5 @@
 import { Request, Response } from "lambda-api";
-import { HttpStatus } from "@utils/http";
+import { HttpStatus } from "@utils/api/http";
 
 export class HealthCheckController {
   static async get(_: Request, res: Response): Promise<void> {

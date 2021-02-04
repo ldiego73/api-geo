@@ -66,7 +66,7 @@ const geoFunctionApiIntegration = new aws.apigatewayv2.Integration("geoFunctionA
   integrationType: "AWS_PROXY",
   integrationUri: geoFunction.arn,
   integrationMethod: "POST",
-  payloadFormatVersion: "1.0",
+  payloadFormatVersion: "2.0",
   passthroughBehavior: "WHEN_NO_MATCH",
 });
 

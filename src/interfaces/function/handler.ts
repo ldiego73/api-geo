@@ -1,9 +1,10 @@
 import { APIGatewayEvent, Context } from "aws-lambda";
-import lambdaApi from "lambda-api";
+// import lambdaApi from "lambda-api";
 
-import { createCors } from "./cors";
-import { HealthCheckController } from "./controllers";
+// import { HealthCheckController } from "./controllers";
 import { getAccountId, getRegion, getStage, isOffline } from "@config/env";
+import { Request } from "@utils/api/request";
+import { Response } from "@utils/api/response";
 // import { Api, Request } from "@utils/api";
 
 console.log("account id => ", getAccountId());
@@ -27,7 +28,6 @@ apiV2.get("/", (req: Request) => {
   console.log("user agent => ", req.userAgent);
   console.log("stage => ", req.stage);
 });
-*/
 
 const api = lambdaApi({
   base: "geo",
@@ -52,6 +52,10 @@ api.options("/*", (_, res) => {
 });
 
 api.get("/healthcheck", HealthCheckController.get);
+*/
+
+Response.cors = true;
+Response.credentials = true;
 
 export async function router(
   event: APIGatewayEvent,
@@ -59,9 +63,13 @@ export async function router(
 ): Promise<any> {
   console.log("Event => ", event);
   console.log("Context => ", context);
-  // return await apiV2.listen(event, context);
 
-  return await api.run(event, context);
+  const request = Request(event, context);
+
+  console.log("Request => ", request);
+
+  return new Response(request)
+    .send(request.body);
 }
 
 async function close(signal: unknown) {
