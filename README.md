@@ -38,3 +38,6 @@ pulumi up --yes --cwd infra/api
 ## Destroy
 pulumi destroy --cwd infra/function
 pulumi destroy --cwd infra/api
+
+
+https://medium.com/swlh/migrating-serverless-to-pulumi-project-7ce798103505

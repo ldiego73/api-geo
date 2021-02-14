@@ -43,7 +43,7 @@ functions:
   geo:
     name: ${self:custom.name}-${self:provider.stage}
     description: Georeferencing api for address search
-    handler: src/interfaces/function/handler.router
+    handler: src/interfaces/function/index.handler
     timeout: 30
     events:
       - httpApi:

@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { HttpStatus } from "@utils/api/http";
+import { HttpStatus } from "micro-lambda-api";
 
 export class HealthCheckController {
   static async get(_: FastifyRequest, res: FastifyReply): Promise<void> {

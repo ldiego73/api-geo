@@ -26,7 +26,7 @@ ENV NODE_ENV production
 COPY --from=build /usr/src/app/dist ${FUNCTION_DIR}
 COPY --from=build /usr/src/app/package.json ${FUNCTION_DIR}
 
-RUN npm i lambda-api
+RUN npm i micro-lambda-api
 RUN ls -la ${FUNCTION_DIR}
 
-CMD [ "handler.router" ]
+CMD [ "index.handler" ]

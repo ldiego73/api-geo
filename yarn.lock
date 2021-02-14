@@ -3957,11 +3957,6 @@ kuler@1.0.x:
   dependencies:
     colornames "^1.1.1"
 
-lambda-api@^0.10.6:
-  version "0.10.6"
-  resolved "https://registry.yarnpkg.com/lambda-api/-/lambda-api-0.10.6.tgz#462d57ad5ceed27b915a8326fe5f1a49f11d5ecc"
-  integrity sha512-Tjn5GQEI4N1a3CojgphpwQX/2692czUykRoG2bnTIgZ6hnRiMea+KlWatD77r4HwF66Uj6xgOOs8YG+jC3xuQg==
-
 latest-version@^5.0.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/latest-version/-/latest-version-5.1.0.tgz#119dfe908fe38d15dfa43ecd13fa12ec8832face"
@@ -4232,6 +4227,11 @@ methods@^1.1.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=
+
+micro-lambda-api@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/micro-lambda-api/-/micro-lambda-api-1.1.2.tgz#72b331d5520511d41d8437d261b8d539fa3e6694"
+  integrity sha512-AC2KtgCRUCUJZdmTAfUCnhCvxM81MpE8BmOavEp/t4E1v3QsY6k3R/GPAq4sxwnlMarAo27DWZyW6zGwWwDU9A==
 
 micromatch@^4.0.0, micromatch@^4.0.2:
   version "4.0.2"
